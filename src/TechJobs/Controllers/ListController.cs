@@ -7,11 +7,11 @@ namespace TechJobs.Controllers
 {
     public class ListController : Controller
     {
-        internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();
+        internal static Dictionary<string, string> columnChoices = new Dictionary<string, string>();        //Create string/string dict 
 
         // This is a "static constructor" which can be used
         // to initialize static members of a class
-        static ListController() 
+        static ListController()                                     //????? Adds the dict values to columnChoices...but what exactly is ListController...and instance?
         {
             
             columnChoices.Add("core competency", "Skill");
@@ -21,24 +21,24 @@ namespace TechJobs.Controllers
             columnChoices.Add("all", "All");
         }
 
-        public IActionResult Index()
+        public IActionResult Index()                                //List page displays the column options
         {
-            ViewBag.columns = columnChoices;
-            return View();
+            ViewBag.columns = columnChoices;                            //Add columnChoices to ViewBag
+            return View();                                              //Feed columnChoices to the View to be rendered
         }
 
-        public IActionResult Values(string column)
+        public IActionResult Values(string column)                  //Action result when a column gets clicked. Poss values for that column displayed or jump to all jobs list
         {
-            if (column.Equals("all"))
+            if (column.Equals("all"))                                   //All is clicked
             {
-                List<Dictionary<string, string>> jobs = JobData.FindAll();
-                ViewBag.title =  "All Jobs";
-                ViewBag.jobs = jobs;
-                return View("Jobs");
+                List<Dictionary<string, string>> jobs = JobData.FindAll();  //List Dict jobs contains all of the jobs in the database 
+                ViewBag.title =  "All Jobs";                                //Add list title to ViewBag
+                ViewBag.jobs = jobs;                                        //add jobs list dict
+                return View("Jobs");                                        //Jump to Jobs view to show all job listings posted there
             }
-            else
-            {
-                List<string> items = JobData.FindAll(column);
+            else                                                        //Something other than jobs is clicked
+            {                       
+                List<string> items = JobData.FindAll(column);               //list items is pop with postings based on the column value
                 ViewBag.title =  "All " + columnChoices[column] + " Values";
                 ViewBag.column = column;
                 ViewBag.items = items;
@@ -46,10 +46,10 @@ namespace TechJobs.Controllers
             }
         }
 
-        public IActionResult Jobs(string column, string value)
+        public IActionResult Jobs(string column, string value)      //Action result when a value for a column value is selected or all is selected
         {
-            List<Dictionary<String, String>> jobs = JobData.FindByColumnAndValue(column, value);
-            ViewBag.title = "Jobs with " + columnChoices[column] + ": " + value;
+            List<Dictionary<String, String>> jobs = JobData.FindByColumnAndValue(column, value);    //list dict jobs is populated with jobs that match chosen value in chosen column
+            ViewBag.title = "Jobs with " + columnChoices[column] + ": " + value;                    
             ViewBag.jobs = jobs;
 
             return View();

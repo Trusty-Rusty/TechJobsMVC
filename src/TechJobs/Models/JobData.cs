@@ -5,14 +5,14 @@ using System.Text;
 
 namespace TechJobs.Models
 {
-    class JobData
+    class JobData                                                                                //Method loads all jobs and parses based on user input
     {
-        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();
+        static List<Dictionary<string, string>> AllJobs = new List<Dictionary<string, string>>();   //AllJobs is a list of dict for each job posting
         static bool IsDataLoaded = false;
 
-        public static List<Dictionary<string, string>> FindAll()
+        public static List<Dictionary<string, string>> FindAll()                                    //Declare FindAll List dict without instantiating
         {
-            LoadData();
+            LoadData();                                                                                 
 
             // Bonus mission: return a copy
             return new List<Dictionary<string, string>>(AllJobs);

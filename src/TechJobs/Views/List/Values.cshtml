@@ -1,7 +1,7 @@
 ﻿<h1>@ViewBag.title</h1>
 
 <table>
-@for (int i= 0; i < ViewBag.items.Count; i++)
+@for (int i= 0; i < ViewBag.items.Count; i++)       //print list of possible values for the chosen column even/odd below alternates bachground color
 {
     <tr class="@( i % 2 == 0 ? "even" : "odd" ) ">
         <td><a asp-controller="List" asp-action="Jobs" asp-route-column="@ViewBag.column" asp-route-value="@ViewBag.items[i]">@ViewBag.items[i]</a></td>
